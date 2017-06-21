@@ -4,27 +4,27 @@
  * @flow
  */
 
- import React, { Component } from 'react';
+ import React, { Component } from 'react'
  import {
    AppRegistry,
    Button,
    StyleSheet,
    Text,
    View
- } from 'react-native';
+ } from 'react-native'
 import Upload from 'react-native-background-upload'
 
 const options = {
-  url: 'https://myservice.com/path/to/post',
+  url: 'http://localhost:3000/upload',
   path: 'file://path/to/file/on/device',
   method: 'POST',
   headers: {
     'my-custom-header': 's3headervalueorwhateveryouneed'
-  },
-  // Below are options only supported on Android
-  notification: {
-    enabled: true
   }
+  // Below are options only supported on Android
+  // notification: {
+  //   enabled: true
+  // }
 }
 
 export default class ReactNativeBackgroundUploadExample extends Component {
@@ -43,36 +43,18 @@ export default class ReactNativeBackgroundUploadExample extends Component {
       })
     }).catch(function(err) {
       console.log('Upload error!',err)
-    });
+    })
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <Button
-          title="Tap To Upload"
-          onPress={this.handlePress}
-        />
-      </View>
-    );
+      <Button
+        title="Tap To Upload"
+        onPress={this.handlePress}
+      />
+    )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+})

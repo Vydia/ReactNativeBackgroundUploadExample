@@ -4,14 +4,14 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   AppRegistry,
   StyleSheet,
   Text,
   View
-} from 'react-native';
-import Upload from './js/components/Upload';
+} from 'react-native'
+import Upload from './js/components/Upload'
 
 export default class ReactNativeBackgroundUploadExample extends Component {
   render() {
@@ -19,7 +19,7 @@ export default class ReactNativeBackgroundUploadExample extends Component {
       <View style={styles.container}>
         <Upload />
       </View>
-    );
+    )
   }
 }
 
@@ -40,6 +40,6 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-});
+})
 
-AppRegistry.registerComponent('ReactNativeBackgroundUploadExample', () => ReactNativeBackgroundUploadExample);
+AppRegistry.registerComponent('ReactNativeBackgroundUploadExample', () => ReactNativeBackgroundUploadExample)

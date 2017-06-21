@@ -4,9 +4,11 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"start-server": "node server/index.js",
 		"test": "jest"
 	},
 	"dependencies": {
+		"express": "^4.15.3",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.45.1",
 		"react-native-background-upload": "^3.0.0-beta"
