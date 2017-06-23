@@ -27,7 +27,7 @@ app.get('/', function (req, res) {
 })
 
 app.post('/upload', function (req, res) {
-  const savePath = `tmps/${uuidv4()}`
+  const savePath = `tmp/${uuidv4()}`
   console.log(`Writing to: ${savePath}`)
 
   writeFile(savePath, req.text, 'binary', function (err) {
