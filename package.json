@@ -4,19 +4,25 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"start-server": "node server/index.js",
+		"server": "node server/index.js",
+		"watch-server": "node_modules/nodemon/bin/nodemon.js server/index.js",
 		"test": "jest"
 	},
 	"dependencies": {
+		"content-type": "^1.0.2",
 		"express": "^4.15.3",
+		"raw-body": "^2.2.0",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.45.1",
-		"react-native-background-upload": "^3.0.0-beta"
+		"react-native-background-upload": "^3.0.0-beta",
+		"react-native-image-picker": "^0.26.3",
+		"uuid": "^3.1.0"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",
 		"babel-preset-react-native": "2.0.0",
 		"jest": "20.0.4",
+		"nodemon": "^1.11.0",
 		"react-test-renderer": "16.0.0-alpha.12"
 	},
 	"jest": {

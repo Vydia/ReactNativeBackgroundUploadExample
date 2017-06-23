@@ -10,6 +10,8 @@ of a bug or other issue when opening up a github issue on
 
  1. Clone the repo
  1. `yarn install`
- 1. `npm run start-server`
+ 1. `npm run server`
  1. Run the example. i.e. `react-native run-ios`
  1. Tap the button in the mobile app to perform an upload.
+
+## [js/components/Upload.js](https://github.com/Vydia/ReactNativeBackgroundUploadExample/blob/master/js/components/Upload.js)
