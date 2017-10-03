@@ -25,10 +25,8 @@ export default class ReactNativeBackgroundUploadExample extends Component {
     }
   }
 
-  startUpload = (path) => {
-    const options = {
-      path,
-      url: 'http://localhost:3000/upload',
+  startUpload = (opts) => {
+    const options = Object.assign({
       method: 'POST'
       // headers: {
       //   'my-custom-header': 's3headervalueorwhateveryouneed'
@@ -37,10 +35,10 @@ export default class ReactNativeBackgroundUploadExample extends Component {
       // notification: {
       //   enabled: true
       // }
-    }
+    }, opts)
 
     Upload.startUpload(options).then((uploadId) => {
-      console.log('Upload started')
+      console.log(`Upload started with options: ${JSON.stringify(options)}`)
       Upload.addListener('progress', uploadId, (data) => {
         console.log(`Progress: ${data.progress}%`)
       })
@@ -55,22 +53,20 @@ export default class ReactNativeBackgroundUploadExample extends Component {
     })
   }
 
-  onPressUpload = () => {
+  onPressUpload = (options) => {
     if (this.state.isImagePickerShowing) {
       return
     }
 
     this.setState({ isImagePickerShowing: true })
 
-    const options = {
-      mediaType: 'video',
+    const imagePickerOptions = {
       takePhotoButtonTitle: null,
-      videoQuality: 'high',
-      title: 'Title TODO',
-      chooseFromLibraryButtonTitle: 'Choose From Library TODO'
+      title: 'Upload Media',
+      chooseFromLibraryButtonTitle: 'Choose From Library'
     }
 
-    ImagePicker.showImagePicker(options, (response) => {
+    ImagePicker.showImagePicker(imagePickerOptions, (response) => {
       let didChooseVideo = true
 
       console.log('ImagePicker response: ', response)
@@ -95,26 +91,40 @@ export default class ReactNativeBackgroundUploadExample extends Component {
       if (Platform.OS === 'android') {
         if (path) { // Video is stored locally on the device
           // TODO: What here?
-          this.startUpload(path)
+          this.startUpload(Object.assign({ path }, options))
         } else { // Video is stored in google cloud
           // TODO: What here?
           this.props.onVideoNotFound()
         }
       } else {
-        this.startUpload(uri)
+        this.startUpload(Object.assign({ path: uri }, options))
       }
     })
   }
 
   render() {
     return (
-      <Button
-        title="Tap To Upload"
-        onPress={this.onPressUpload}
-      />
+      <View>
+        <View>
+          <Button
+            title="Tap To Upload Data Raw"
+            onPress={() => this.onPressUpload({
+              url: 'http://localhost:3000/upload_raw',
+              type: 'raw'
+            })}
+          />
+        <View>
+        </View>
+          <Button
+            title="Tap To Upload Multipart"
+            onPress={() => this.onPressUpload({
+              url: 'http://localhost:3000/upload_multipart',
+              field: 'uploaded_media',
+              type: 'multipart'
+            })}
+          />
+        </View>
+      </View>
     )
   }
 }
-
-const styles = StyleSheet.create({
-})

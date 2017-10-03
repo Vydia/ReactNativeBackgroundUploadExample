@@ -52,5 +52,7 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 
-tmp/*
+tmp/**/*
+!tmp/raw/.gitkeep
+!tmp/multipart/.gitkeep
 !tmp/.gitkeep
