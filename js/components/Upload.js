@@ -25,52 +25,46 @@ export default class ReactNativeBackgroundUploadExample extends Component {
     }
   }
 
-  startUpload = (path) => {
-    const options = {
-      path,
-      url: 'http://localhost:3000/upload',
-      method: 'POST'
-      // headers: {
-      //   'my-custom-header': 's3headervalueorwhateveryouneed'
-      // },
-      // Below are options only supported on Android
-      // notification: {
-      //   enabled: true
-      // }
-    }
+  startUpload = (opts) => {
+    Upload.getFileInfo(opts.path).then((metadata) => {
+      const options = Object.assign({
+        method: 'POST',
+        headers: {
+          'content-type': metadata.mimeType // server requires a content-type header
+        }
+      }, opts)
 
-    Upload.startUpload(options).then((uploadId) => {
-      console.log('Upload started')
-      Upload.addListener('progress', uploadId, (data) => {
-        console.log(`Progress: ${data.progress}%`)
+      Upload.startUpload(options).then((uploadId) => {
+        console.log(`Upload started with options: ${JSON.stringify(options)}`)
+        Upload.addListener('progress', uploadId, (data) => {
+          console.log(`Progress: ${data.progress}%`)
+        })
+        Upload.addListener('error', uploadId, (data) => {
+          console.log(`Error: ${data.error}%`)
+        })
+        Upload.addListener('completed', uploadId, (data) => {
+          console.log('Completed!')
+        })
+      }).catch(function(err) {
+        console.log('Upload error!', err)
       })
-      Upload.addListener('error', uploadId, (data) => {
-        console.log(`Error: ${data.error}%`)
-      })
-      Upload.addListener('completed', uploadId, (data) => {
-        console.log('Completed!')
-      })
-    }).catch(function(err) {
-      console.log('Upload error!', err)
     })
   }
 
-  onPressUpload = () => {
+  onPressUpload = (options) => {
     if (this.state.isImagePickerShowing) {
       return
     }
 
     this.setState({ isImagePickerShowing: true })
 
-    const options = {
-      mediaType: 'video',
+    const imagePickerOptions = {
       takePhotoButtonTitle: null,
-      videoQuality: 'high',
-      title: 'Title TODO',
-      chooseFromLibraryButtonTitle: 'Choose From Library TODO'
+      title: 'Upload Media',
+      chooseFromLibraryButtonTitle: 'Choose From Library'
     }
 
-    ImagePicker.showImagePicker(options, (response) => {
+    ImagePicker.showImagePicker(imagePickerOptions, (response) => {
       let didChooseVideo = true
 
       console.log('ImagePicker response: ', response)
@@ -85,6 +79,7 @@ export default class ReactNativeBackgroundUploadExample extends Component {
         didChooseVideo = false
       }
 
+
       // TODO: Should this happen higher?
       this.setState({ isImagePickerShowing: false })
 
@@ -95,26 +90,40 @@ export default class ReactNativeBackgroundUploadExample extends Component {
       if (Platform.OS === 'android') {
         if (path) { // Video is stored locally on the device
           // TODO: What here?
-          this.startUpload(path)
+          this.startUpload(Object.assign({ path }, options))
         } else { // Video is stored in google cloud
           // TODO: What here?
           this.props.onVideoNotFound()
         }
       } else {
-        this.startUpload(uri)
+        this.startUpload(Object.assign({ path: uri }, options))
       }
     })
   }
 
   render() {
     return (
-      <Button
-        title="Tap To Upload"
-        onPress={this.onPressUpload}
-      />
+      <View>
+        <View>
+          <Button
+            title="Tap To Upload Raw"
+            onPress={() => this.onPressUpload({
+              url: 'http://localhost:3000/upload_raw',
+              type: 'raw'
+            })}
+          />
+        <View>
+        </View>
+          <Button
+            title="Tap To Upload Multipart"
+            onPress={() => this.onPressUpload({
+              url: 'http://localhost:3000/upload_multipart',
+              field: 'uploaded_media',
+              type: 'multipart'
+            })}
+          />
+        </View>
+      </View>
     )
   }
 }
-
-const styles = StyleSheet.create({
-})
