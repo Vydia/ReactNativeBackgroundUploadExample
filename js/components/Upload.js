@@ -26,30 +26,28 @@ export default class ReactNativeBackgroundUploadExample extends Component {
   }
 
   startUpload = (opts) => {
-    const options = Object.assign({
-      method: 'POST'
-      // headers: {
-      //   'my-custom-header': 's3headervalueorwhateveryouneed'
-      // },
-      // Below are options only supported on Android
-      // notification: {
-      //   enabled: true
-      // }
-    }, opts)
+    Upload.getFileInfo(opts.path).then((metadata) => {
+      const options = Object.assign({
+        method: 'POST',
+        headers: {
+          'content-type': metadata.mimeType // server requires a content-type header
+        }
+      }, opts)
 
-    Upload.startUpload(options).then((uploadId) => {
-      console.log(`Upload started with options: ${JSON.stringify(options)}`)
-      Upload.addListener('progress', uploadId, (data) => {
-        console.log(`Progress: ${data.progress}%`)
+      Upload.startUpload(options).then((uploadId) => {
+        console.log(`Upload started with options: ${JSON.stringify(options)}`)
+        Upload.addListener('progress', uploadId, (data) => {
+          console.log(`Progress: ${data.progress}%`)
+        })
+        Upload.addListener('error', uploadId, (data) => {
+          console.log(`Error: ${data.error}%`)
+        })
+        Upload.addListener('completed', uploadId, (data) => {
+          console.log('Completed!')
+        })
+      }).catch(function(err) {
+        console.log('Upload error!', err)
       })
-      Upload.addListener('error', uploadId, (data) => {
-        console.log(`Error: ${data.error}%`)
-      })
-      Upload.addListener('completed', uploadId, (data) => {
-        console.log('Completed!')
-      })
-    }).catch(function(err) {
-      console.log('Upload error!', err)
     })
   }
 
@@ -80,6 +78,7 @@ export default class ReactNativeBackgroundUploadExample extends Component {
         console.warn('ImagePicker error:', response)
         didChooseVideo = false
       }
+
 
       // TODO: Should this happen higher?
       this.setState({ isImagePickerShowing: false })
