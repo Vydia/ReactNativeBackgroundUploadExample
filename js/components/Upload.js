@@ -109,7 +109,7 @@ export default class ReactNativeBackgroundUploadExample extends Component {
           <Button
             title="Tap To Upload Data Raw"
             onPress={() => this.onPressUpload({
-              url: 'http://192.168.1.10:3000/upload_raw',
+              url: 'http://localhost:3000/upload_raw',
               type: 'raw'
             })}
           />
@@ -118,7 +118,7 @@ export default class ReactNativeBackgroundUploadExample extends Component {
           <Button
             title="Tap To Upload Multipart"
             onPress={() => this.onPressUpload({
-              url: 'http://192.168.1.10:3000/upload_multipart',
+              url: 'http://localhost:3000/upload_multipart',
               field: 'uploaded_media',
               type: 'multipart'
             })}
