@@ -11,10 +11,10 @@ of a bug or other issue when opening up a github issue on
  1. Clone the repo
  1. `yarn install`
  1. `npm run server`
- 1. Run the example. i.e. `react-native run-ios`
+ 1. Run the example app `react-native run-ios` or `react-native run-android`
  1. Tap the button in the mobile app to perform an upload.
 
-## Where to look?
+## Important files to look at
 
 ### [js/components/Upload.js](https://github.com/Vydia/ReactNativeBackgroundUploadExample/blob/master/js/components/Upload.js)
 
@@ -22,8 +22,13 @@ The React Native component that allows the user to choose an image from device
 and upload it to the localhost server.
 
 *Note: In the iOS simulator, you can add images and videos to the camera roll by
-dragging and dropping files from finder onto the simulator window.*
+dragging and dropping files from finder onto the simulator window. In the Android
+emulator you can usually use the emulator camera app to take test picture.*
 
 ### [js/server/index.js](https://github.com/Vydia/ReactNativeBackgroundUploadExample/blob/master/js/server/index.js)
 
 The express server that receives the upload and writes it to file.
+
+## Common issues
+
+ 1. If your server is not getting hit `adb reverse tcp:3000 tcp:3000`

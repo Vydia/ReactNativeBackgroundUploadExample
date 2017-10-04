@@ -106,7 +106,7 @@ export default class ReactNativeBackgroundUploadExample extends Component {
       <View>
         <View>
           <Button
-            title="Tap To Upload Data Raw"
+            title="Tap To Upload Raw"
             onPress={() => this.onPressUpload({
               url: 'http://localhost:3000/upload_raw',
               type: 'raw'
