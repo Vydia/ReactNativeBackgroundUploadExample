@@ -18,6 +18,8 @@ app.post('/upload_multipart', upload.single('uploaded_media'), function (req, re
   console.log('/upload_multipart')
   console.log(`Received headers: ${JSON.stringify(req.headers)}`)
   console.log(`Wrote to: ${req.file.path}`)
+  res.status = 202
+  res.end()
 })
 
 app.post('/upload_raw', function (req, res, next) {
