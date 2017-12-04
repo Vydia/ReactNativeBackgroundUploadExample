@@ -2798,7 +2798,7 @@ lodash@^3.5.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.14.0, lodash@^4.16.6, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
+lodash@^4.14.0, lodash@^4.16.6, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -3473,9 +3473,9 @@ react-devtools-core@^2.1.8:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-native-background-upload@^4.1.0:
+"react-native-background-upload@https://github.com/EJohnF/react-native-background-upload.git#cancel-upload":
   version "4.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-background-upload/-/react-native-background-upload-4.1.0.tgz#10066659cd66895c47ac119789a86d6a2d7300ba"
+  resolved "https://github.com/EJohnF/react-native-background-upload.git#bb4ab8deba59f75837ccc6c2c1103334987470d3"
 
 react-native-image-picker@^0.26.3:
   version "0.26.3"
