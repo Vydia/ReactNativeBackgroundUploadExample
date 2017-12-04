@@ -15,7 +15,7 @@
 		"raw-body": "^2.2.0",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.45.1",
-		"react-native-background-upload": "^4.1.0",
+		"react-native-background-upload": "https://github.com/EJohnF/react-native-background-upload.git#cancel-upload",
 		"react-native-image-picker": "^0.26.3",
 		"uuid": "^3.1.0"
 	},
