@@ -21,7 +21,8 @@ export default class ReactNativeBackgroundUploadExample extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isImagePickerShowing: false
+      isImagePickerShowing: false,
+      uploadId: null,
     }
   }
 
@@ -36,6 +37,7 @@ export default class ReactNativeBackgroundUploadExample extends Component {
 
       Upload.startUpload(options).then((uploadId) => {
         console.log(`Upload started with options: ${JSON.stringify(options)}`)
+        this.setState({ uploadId });
         Upload.addListener('progress', uploadId, (data) => {
           console.log(`Progress: ${data.progress}%`)
         })
@@ -101,6 +103,13 @@ export default class ReactNativeBackgroundUploadExample extends Component {
     })
   }
 
+  cancelUpload = () => {
+    this.state.uploadId &&
+      Upload.cancelUpload(this.state.uploadId).then((props) => {
+        console.log('upload canceled');
+      });
+  }
+
   render() {
     return (
       <View>
@@ -112,8 +121,7 @@ export default class ReactNativeBackgroundUploadExample extends Component {
               type: 'raw'
             })}
           />
-        <View>
-        </View>
+          <View/>
           <Button
             title="Tap To Upload Multipart"
             onPress={() => this.onPressUpload({
@@ -121,6 +129,11 @@ export default class ReactNativeBackgroundUploadExample extends Component {
               field: 'uploaded_media',
               type: 'multipart'
             })}
+          />
+          <View/>
+          <Button
+            title="Tap cancel uploading"
+            onPress={this.cancelUpload}
           />
         </View>
       </View>
