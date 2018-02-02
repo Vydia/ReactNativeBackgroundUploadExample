@@ -14,6 +14,8 @@ of a bug or other issue when opening up a github issue on
  1. Run the example app `react-native run-ios` or `react-native run-android`
  1. Tap the button in the mobile app to perform an upload.
 
+If you are running on an Android device connected via USB, run `adb reverse tcp:3000 tcp:3000` after `react-native run-android`.  This will allow the device to communicate with the server.  Otherwise it won't work.
+
 ## Important files to look at
 
 ### [js/components/Upload.js](https://github.com/Vydia/ReactNativeBackgroundUploadExample/blob/master/js/components/Upload.js)
