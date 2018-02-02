@@ -32,3 +32,11 @@ The express server that receives the upload and writes it to file.
 ## Common issues
 
  1. If your server is not getting hit `adb reverse tcp:3000 tcp:3000`
+
+## Working on the react-native-background-upload package
+
+If you are using this app to make changes to the react-native-background-upload package, you'll probably need to use the react-native-background-upload package from your file system and not from npm.  To do this, edit the package.json to replace the existing version from npm like so:
+```
+"react-native-background-upload": "file:../react-native-background-upload",
+```
+Remember not to push this to github because it'll work for you but nobody else.
