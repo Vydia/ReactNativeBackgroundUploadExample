@@ -11,6 +11,7 @@ import {
   Button,
   Platform,
   StyleSheet,
+  Switch,
   Text,
   View
 } from 'react-native'
@@ -23,6 +24,7 @@ export default class ReactNativeBackgroundUploadExample extends Component {
     super(props)
     this.state = {
       isImagePickerShowing: false,
+      useAssetFile: false,
       uploadId: null,
       progress: null,
     }
@@ -54,7 +56,7 @@ export default class ReactNativeBackgroundUploadExample extends Component {
         Upload.addListener('completed', uploadId, (data) => {
           console.log('Completed!')
         })
-      }).catch(function(err) {
+      }).catch((err) => {
         this.setState({ uploadId: null, progress: null })
         console.log('Upload error!', err)
       })
@@ -78,7 +80,7 @@ export default class ReactNativeBackgroundUploadExample extends Component {
       let didChooseVideo = true
 
       console.log('ImagePicker response: ', response)
-      const { customButton, didCancel, error, path, uri } = response
+      const { customButton, didCancel, error, path, uri, origURL } = response
 
       if (didCancel) {
         didChooseVideo = false
@@ -105,7 +107,7 @@ export default class ReactNativeBackgroundUploadExample extends Component {
           this.props.onVideoNotFound()
         }
       } else {
-        this.startUpload(Object.assign({ path: uri }, options))
+        this.startUpload(Object.assign({ path: this.state.useAssetFile ? origURL : uri }, options))
       }
     })
   }
@@ -120,6 +122,10 @@ export default class ReactNativeBackgroundUploadExample extends Component {
       console.log(`Upload ${this.state.uploadId} canceled`)
       this.setState({ uploadId: null, progress: null })
     })
+  }
+
+  onUseAssetFileSwitchChange = (value) => {
+    this.setState({ useAssetFile: value })
   }
 
   render() {
@@ -154,6 +160,13 @@ export default class ReactNativeBackgroundUploadExample extends Component {
             title="Tap to Cancel Upload"
             onPress={this.cancelUpload}
           />
+          <View style={{flexDirection: 'row', alignItems: 'center' }}>
+            <Switch
+              value={this.state.useAssetFile}
+              onValueChange={this.onUseAssetFileSwitchChange}
+             />
+             <Text>Use Asset File Directly (ios only)</Text>
+          </View>
         </View>
       </View>
     )
