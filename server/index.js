@@ -30,13 +30,13 @@ app.post('/upload_raw', function (req, res, next) {
     length: req.headers['content-length'],
     limit: '50mb',
     encoding: contentType.parse(req).parameters.charset
-  }, function (err, string) {
+  }, function (err, data) {
     if (err) return next(err)
 
     const savePath = `tmp/raw/${uuidv4()}`
     console.log(`Writing to: ${savePath}`)
 
-    writeFile(savePath, string, 'binary', function (err) {
+    writeFile(savePath, data, 'binary', function (err) {
       if (err) {
         console.log('Write error:', err)
         res.status = 500
