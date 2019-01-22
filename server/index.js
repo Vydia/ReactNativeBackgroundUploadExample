@@ -33,7 +33,7 @@ app.post('/upload_raw', function (req, res, next) {
   }, function (err, data) {
     if (err) return next(err)
 
-    const savePath = `tmp/raw/${uuidv4()}`
+    const savePath = `tmp/${uuidv4()}`
     console.log(`Writing to: ${savePath}`)
 
     writeFile(savePath, data, 'binary', function (err) {
